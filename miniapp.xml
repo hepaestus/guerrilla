@@ -1,0 +1,6 @@
+<!--
+ You can run the project in Tomcat by copying this file to $CATALINA_HOME/conf/Catalina/localhost
+ After starting Tomcat, use http://localhost:8080/miniapp to access the web application.
+ -->
+<Context docBase="D:/javalib/Stripes/projects/miniapp/web">
+</Context>

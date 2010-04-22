@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<project name="miniapp" default="help">
+  <!-- Properties -->
+  <!-- ========== -->
+
+  <property environment="env"/>
+
+  <property name="src" value="src"/>
+  <property name="res" value="res"/>
+  <property name="web" value="web"/>
+  <property name="classes" value="${web}/WEB-INF/classes"/>
+  <property name="lib" value="${web}/WEB-INF/lib"/>
+  <property name="dist" value="dist"/>
+  <property name="hsql" value="hsql"/>
+
+  <path id="classpath_compile_time">
+    <fileset dir="lib_compile" includes="*.jar"/>
+  </path>
+
+  <!-- Targets -->
+  <!-- ======= -->
+
+  <target name="help" description="Prints out help on using this build file">
+    <echo message="Use 'ant run' to run the project in Jetty."/>
+    <echo message="If you did not create the project with the 'opt.jetty' property,"/>
+    <echo message="you must have defined the JETTY_HOME environment variable to point to the directory where Jetty is installed."/>
+    <echo message="To run the project in Tomcat, use 'ant build'."/>
+    <echo message="You can either copy the dist/${ant.project.name}.war file to Tomcat's webapps directory,"/>
+    <echo message="or copy the ${ant.project.name}.xml file to Tomcat's conf/Catalina/localhost directory."/>
+    <echo message="Then, start Tomcat."/>
+    <echo message="Run 'ant dbstart' to start the server, and 'ant dbstop' to stop the server."/>
+    <echo message="You can also launch the GUI client with 'ant dbgui' and browse the database."/>
+  </target>
+
+  <target name="init">
+    <mkdir dir="${classes}"/>
+    <mkdir dir="${dist}"/>
+  </target>
+
+  <target name="clean" description="Cleans generated files">
+    <delete dir="${classes}"/>
+    <delete dir="${dist}"/>
+  </target>
+
+  <target name="copy_res" description="Copies resources" depends="init">
+    <copy todir="${classes}">
+      <fileset dir="${res}"/>
+    </copy>
+  </target>
+
+  <target name="compile" depends="copy_res" description="Compiles source code">
+    <javac srcdir="${src}" destdir="${classes}" debug="true" deprecation="true">
+      <classpath>
+        <fileset dir="${lib}" includes="*.jar"/>
+        <path refid="classpath_compile_time"/>
+      </classpath>
+      <compilerarg value="-Xlint:unchecked"/>
+    </javac>
+  </target>
+
+  <target name="build" depends="compile" description="Builds the WAR file">
+    <property name="templib" value="${dist}/lib"/>
+    <mkdir dir="${templib}"/>
+    <copy todir="${templib}" flatten="true">
+      <fileset dir="${lib}" includes="*.jar"/>
+    </copy>
+    <war destfile="${dist}/${ant.project.name}.war" needxmlfile="false">
+      <fileset dir="${web}"/>
+      <lib dir="${templib}"/>
+    </war>
+    <delete dir="${templib}"/>
+  </target>
+
+    <!-- HSQLDB -->
+    <!-- ====== -->
+
+  <path id="hsqldb">
+    <fileset dir="web\WEB-INF\lib" includes="*.jar"/>
+  </path>
+
+  <target name="dbstart" description="Starts HSQLDB server">
+    <java classname="org.hsqldb.Server" fork="true">
+      <classpath refid="hsqldb"/>
+      <arg line="-database.0 file:${hsql}/miniappdb -dbname.0 miniapp"/>
+    </java>
+  </target>
+
+  <property name="dburl" value="jdbc:hsqldb:hsql://localhost:9001/miniapp"/>
+
+  <target name="dbstop" description="Stops HSQLDB server">
+    <java classname="org.hsqldb.util.ShutdownServer">
+      <classpath refid="hsqldb"/>
+      <arg line="-url ${dburl}"/>
+    </java>
+  </target>
+
+  <target name="dbgui" description="Launches DB GUI client">
+    <java classname="org.hsqldb.util.DatabaseManagerSwing" fork="true">
+      <classpath refid="hsqldb"/>
+      <arg line="-url ${dburl}"/>
+    </java>
+  </target>
+</project>
