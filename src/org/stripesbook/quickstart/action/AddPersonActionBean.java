@@ -1,6 +1,5 @@
 package org.stripesbook.quickstart.action;
 
-
 import java.util.List;
 
 import javax.persistence.EntityExistsException;
@@ -29,7 +28,7 @@ public class AddPersonActionBean extends BaseActionBean {
 	
     @DefaultHandler
     public Resolution view() {
-        return new ForwardResolution("/WEB-INF/jsp/addperson.jsp");
+        return new ForwardResolution("/WEB-INF/jsp/addPerson.jsp");
     }
         
     public Resolution newPerson() {

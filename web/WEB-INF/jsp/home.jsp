@@ -2,11 +2,6 @@
 
 <s:layout-render name="/WEB-INF/jsp/layout.jsp" title="Welcome">
 
-  <s:layout-component name="header">  
-  This is the header
-
-  </s:layout-component>
-
   <s:layout-component name="body">  
   <h2>Person List</h2>
   <p><s:link beanclass="org.stripesbook.quickstart.action.AddPersonActionBean">Add A Person</s:link>
@@ -25,7 +20,7 @@
   </p>
 
   <h2>Item List</h2>
-  <p><s:link beanclass="org.stripesbook.quickstart.action.AddPersonActionBean">Add A Item</s:link>
+  <p><s:link beanclass="org.stripesbook.quickstart.action.AddItemActionBean">Add A Item</s:link>
   <ul>
   <c:forEach var="item" items="${actionBean.itemsList}">        
     <li>Item ID: ${item.id}
@@ -38,11 +33,6 @@
   </c:forEach>
   </ul>
   </p>
-
-  </s:layout-component>
-
-  <s:layout-component name="footer">  
-  This is the footer
 
   </s:layout-component>
 
