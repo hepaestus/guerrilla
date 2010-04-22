@@ -34,6 +34,26 @@
   </ul>
   </p>
 
+  <h2>Location List</h2>
+  <p><s:link beanclass="org.stripesbook.quickstart.action.AddLocationActionBean">Add An Location</s:link>
+  <ul>
+  <c:forEach var="location" items="${actionBean.locationsList}">        
+    <li>Location ID: ${location.id}
+      <ul>
+        <li>Name: ${location.name}</li>
+        <li>Address: ${location.streetAddress1}</li>
+        <li>Addr. Cont.: ${location.streetAddress2}</li>
+        <li>City: ${location.city}</li>
+        <li>Stat: ${location.state}</li>
+        <li>Postal Code: ${location.postalCode}</li>
+        <li>Lat : ${location.latitude}</li>
+        <li>Long: ${location.longitude}</li>
+      </ul>
+    </li>
+  </c:forEach>
+  </ul>
+  </p>
+
   </s:layout-component>
 
 </s:layout-render>

@@ -20,7 +20,7 @@ public class Location extends ModelBase {
     private String country;
     
 	private String longitude;
-	private String latititude;
+	private String latitude;
 	
 	private Date created;
 	private Date updated;
@@ -79,11 +79,11 @@ public class Location extends ModelBase {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	public String getLatititude() {
-		return latititude;
+	public String getLatitude() {
+		return latitude;
 	}
-	public void setLatititude(String latititude) {
-		this.latititude = latititude;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 	public Date getCreated() {
 		return created;

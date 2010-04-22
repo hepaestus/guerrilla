@@ -2,9 +2,6 @@ package org.stripesbook.quickstart.action;
 
 import java.util.List;
 
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityManager;
-
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -13,9 +10,9 @@ import net.sourceforge.stripes.action.UrlBinding;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.stripesbook.quickstart.model.Location;
 import org.stripesbook.quickstart.model.Person;
 import org.stripesbook.quickstart.model.TrackableItem;
-import org.stripesstuff.stripersist.Stripersist;
 
 @UrlBinding("/Home.action")
 public class HomeActionBean extends BaseActionBean {
@@ -25,14 +22,17 @@ public class HomeActionBean extends BaseActionBean {
 	private Session sess = org.stripesbook.quickstart.util.DAO.getSession();
     private Criteria critPerson = sess.createCriteria(Person.class);
     private Criteria critItem = sess.createCriteria(TrackableItem.class);
+    private Criteria critLocation = sess.createCriteria(Location.class);
     
 	private List<Person> personsList;
 	private List<TrackableItem> itemsList;
+	private List<Location> locationsList;
 
     @DefaultHandler
     public Resolution view() {
     	populatePersonsList();
     	populateItemsList();
+    	populateLocationsList();
         return new ForwardResolution("/WEB-INF/jsp/home.jsp");
     }        
     
@@ -46,7 +46,13 @@ public class HomeActionBean extends BaseActionBean {
         logger.debug("populate items list");
         sess.createCriteria(TrackableItem.class);
         critItem.addOrder(Order.asc("name"));
-        setItemsList(critItem.list());        
+        itemsList = critItem.list();        
+    }
+    public void populateLocationsList() {        
+        logger.debug("populate locations list");
+        sess.createCriteria(Location.class);
+        critLocation.addOrder(Order.asc("name"));
+        locationsList = (List<Location>) critLocation.list();        
     }
     
     public List<Person> getPersonsList() {
@@ -64,4 +70,12 @@ public class HomeActionBean extends BaseActionBean {
 	public List<TrackableItem> getItemsList() {
 		return itemsList;
 	}
+
+    public List<Location> getLocationsList() {
+        return locationsList;
+    }
+
+    public void setLocationsList(List<Location> locationsList) {
+        this.locationsList = locationsList;
+    }
 }

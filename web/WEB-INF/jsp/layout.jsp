@@ -16,9 +16,10 @@
       <ul>
           <li>Navigation
               <ul>
-                  <li><s:link beanclass="org.stripesbook.quickstart.action.HomectionBean">Home</s:link>
-                  <li><s:link beanclass="org.stripesbook.quickstart.action.AddPersonActionBean">Add Person</s:link>
-                  <li><s:link beanclass="org.stripesbook.quickstart.action.AddItemActionBean">Add Item</s:link>                  
+                  <li><s:link beanclass="org.stripesbook.quickstart.action.HomeActionBean">Home</s:link></li>
+                  <li><s:link beanclass="org.stripesbook.quickstart.action.AddPersonActionBean">Add Person</s:link></li>
+                  <li><s:link beanclass="org.stripesbook.quickstart.action.AddLocationActionBean">Add Location</s:link></li> 
+                  <li><s:link beanclass="org.stripesbook.quickstart.action.AddItemActionBean">Add Item</s:link></li>                  
               </ul>
           </li>
       </ul>
