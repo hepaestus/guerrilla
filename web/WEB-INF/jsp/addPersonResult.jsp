@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<s:layout-render name="/WEB-INF/jsp/layout.jsp" title="Welcome">
+<s:layout-render name="/WEB-INF/jsp/layout.jsp" title="Add a Person">
   <s:layout-component name="body">
       <p>
         Hi ${actionBean.person.firstName} ${actionBean.person.lastName}!
@@ -15,7 +15,7 @@
       <p>
 	    <ul>
 	    <c:forEach var="person" items="${actionBean.personsList}">        
-	      <li>User ID: ${person.id}
+	    <li>User ID: <s:link beanclass="org.stripesbook.quickstart.action.ShowPersonActionBean" ><s:param name="personId" value="${person.id}"/>${person.id}</s:link>
 	        <ul>
 	          <li>${person.firstName} ${person.lastName}</li>
 	          <li>${person.email}</li>

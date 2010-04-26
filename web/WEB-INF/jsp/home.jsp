@@ -7,7 +7,8 @@
   <p><s:link beanclass="org.stripesbook.quickstart.action.AddPersonActionBean">Add A Person</s:link>
   <ul>
   <c:forEach var="person" items="${actionBean.personsList}">        
-    <li>User ID: ${person.id}
+  
+    <li>User ID: <s:link beanclass="org.stripesbook.quickstart.action.ShowPersonActionBean" event="view" ><s:param name="personId" value="${person.id}"/>${person.id}</s:link>
       <ul>
         <li>${person.firstName} ${person.lastName}</li>
         <li>Email: ${person.email}</li>
@@ -48,6 +49,22 @@
         <li>Postal Code: ${location.postalCode}</li>
         <li>Lat : ${location.latitude}</li>
         <li>Long: ${location.longitude}</li>
+      </ul>
+    </li>
+  </c:forEach>
+  </ul>
+  </p>
+
+  <h2>Image List</h2>
+  <p><s:link beanclass="org.stripesbook.quickstart.action.AddImageActionBean">Add An Image</s:link>
+  <ul>
+  <c:forEach var="image" items="${actionBean.imagesList}">        
+    <li>Image ID: ${image.id}
+      <ul>
+        <li>Title: ${image.title}</li>
+        <li>Description: ${image.description}</li>
+        <li>File Name: ${image.fileName}</li>
+        <li>Owner Id: ${image.owner}</li>
       </ul>
     </li>
   </c:forEach>

@@ -7,6 +7,18 @@
   <h3>Add An Location</h3>
   <s:form beanclass="org.stripesbook.quickstart.action.AddLocationActionBean">
       <s:messages/>
+      <c:choose>
+        <c:when test="${personId != null}">
+          <p>Adding this address to the user with id ${personId}</p>        
+          <s:hidden name="personId" value="${personId}"></s:hidden>  
+        </c:when>
+        <c:when test="${itemId != null}">
+          <s:hidden name="itemId" value="${itemId}"></s:hidden>  
+        </c:when>
+        <c:otherwise>
+        <p>No ID Info PASSED</p>
+        </c:otherwise>
+      </c:choose>
       <div class="field">Name<br/><s:text name="location.name" /></div>
       <div class="field">Address<br/><s:text name="location.streetAddress1" /></div>
       <div class="field">Addr. Cont.<br/><s:text name="location.streetAddress2" /></div>

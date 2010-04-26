@@ -8,10 +8,11 @@ import javax.persistence.Entity;
 public class Location extends ModelBase {
 
 	private String name;
+	private String type;
 	
-	private String type; 
+	//@OneToMany
 	//private LocationType locationType;
-
+	
 	private String streetAddress1;
 	private String streetAddress2;
     private String city;
@@ -22,8 +23,15 @@ public class Location extends ModelBase {
 	private String longitude;
 	private String latitude;
 	
-	private Date created;
+	private Integer ownerId;
+	private Integer itemId;
+	
+	private Date created; 
 	private Date updated;
+	
+	public Location() {
+		this.created = new Date();
+	}
 	
 	public String getName() {
 		return name;

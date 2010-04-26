@@ -10,6 +10,7 @@ import net.sourceforge.stripes.action.UrlBinding;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.stripesbook.quickstart.model.Image;
 import org.stripesbook.quickstart.model.Location;
 import org.stripesbook.quickstart.model.Person;
 import org.stripesbook.quickstart.model.TrackableItem;
@@ -23,16 +24,19 @@ public class HomeActionBean extends BaseActionBean {
     private Criteria critPerson = sess.createCriteria(Person.class);
     private Criteria critItem = sess.createCriteria(TrackableItem.class);
     private Criteria critLocation = sess.createCriteria(Location.class);
+    private Criteria critImage = sess.createCriteria(Image.class);
     
 	private List<Person> personsList;
 	private List<TrackableItem> itemsList;
 	private List<Location> locationsList;
+	private List<Image> imagesList;
 
     @DefaultHandler
     public Resolution view() {
     	populatePersonsList();
     	populateItemsList();
     	populateLocationsList();
+    	populateImagesList();
         return new ForwardResolution("/WEB-INF/jsp/home.jsp");
     }        
     
@@ -54,7 +58,12 @@ public class HomeActionBean extends BaseActionBean {
         critLocation.addOrder(Order.asc("name"));
         locationsList = (List<Location>) critLocation.list();        
     }
-    
+    public void populateImagesList() {        
+        logger.debug("populate images list");
+        sess.createCriteria(Image.class);
+        critLocation.addOrder(Order.asc("title"));
+        imagesList = (List<Image>) critImage.list();        
+    }
     public List<Person> getPersonsList() {
         return personsList;
     }
@@ -78,4 +87,12 @@ public class HomeActionBean extends BaseActionBean {
     public void setLocationsList(List<Location> locationsList) {
         this.locationsList = locationsList;
     }
+
+	public List<Image> getImagesList() {
+		return imagesList;
+	}
+
+	public void setImagesList(List<Image> imagesList) {
+		this.imagesList = imagesList;
+	}
 }

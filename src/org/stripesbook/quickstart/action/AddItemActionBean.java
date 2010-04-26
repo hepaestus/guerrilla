@@ -1,5 +1,6 @@
 package org.stripesbook.quickstart.action;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityExistsException;
@@ -35,14 +36,16 @@ public class AddItemActionBean extends BaseActionBean {
     	
     	EntityManager em = Stripersist.getEntityManager();
     	
+    	item.setCreated(new Date());
+    	
     	try {        	
         	if (logger.isDebugEnabled()) {
         		logger.debug("item.id          : " + item.getId());
         		logger.debug("item.name        : " + item.getName());
         		logger.debug("item.description : " + item.getDescription());        		
         		logger.debug("item.url         : " + item.getUrl());
-        		//logger.debug("item.extUrl  : " + item.extUrl());
-        		
+        		logger.debug("item.created     : " + item.getCreated());
+        		logger.debug("item.lookupUrl   : " + item.getLookupUrl());        		
         	}        	
 
         	em.persist(item);

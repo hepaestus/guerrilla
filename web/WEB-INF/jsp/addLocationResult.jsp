@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/taglibs.jsp" %>
 
-<s:layout-render name="/WEB-INF/jsp/layout.jsp" title="Welcome">
+<s:layout-render name="/WEB-INF/jsp/layout.jsp" title="Add a Location">
   <s:layout-component name="body">
       <p>        
         <ul>
@@ -26,7 +26,7 @@
             <li>Addr. Cont.: ${location.streetAddress2}</li>
             <li>City: ${location.city}</li>
             <li>Stat: ${location.state}</li>
-            <li>Postal Code: ${location.postalCose}</li>
+            <li>Postal Code: ${location.postalCode}</li>
             <li>Lat : ${location.latitude}</li>
             <li>Long: ${location.longitude}</li>
           </ul>

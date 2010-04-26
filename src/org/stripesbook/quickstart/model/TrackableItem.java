@@ -1,8 +1,12 @@
 package org.stripesbook.quickstart.model;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TrackableItem extends ModelBase {
@@ -10,14 +14,26 @@ public class TrackableItem extends ModelBase {
 	private String name;
 	private String description;
 	private String url;
-	//private Person creator;
-	//private Person owner;
-	private Integer creatorId;
-	private Integer ownerId;
-	//private Location location;
-	private Integer locationId;
+	private String lookupUrl;
+	
+	@OneToOne
+	private Person creator;
+	
+	@ManyToOne
+	private Person owner;
+	
+	@OneToOne
+	private Location location;
+	
+	@OneToMany
+	private Collection<Image> images;
+	
 	private Date created;
 	private Date updated;
+	
+	public TrackableItem() {
+		this.created = new Date();
+	}
 	
 	public String getName() {
 		return name;
@@ -37,8 +53,12 @@ public class TrackableItem extends ModelBase {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
-	/*
+	public String getLookupUrl() {
+		return lookupUrl;
+	}
+	public void setLookupUrl(String lookupUrl) {
+		this.lookupUrl = lookupUrl;
+	}
 	public Person getCreator() {
 		return creator;
 	}
@@ -51,35 +71,21 @@ public class TrackableItem extends ModelBase {
 	public void setOwner(Person owner) {
 		this.owner = owner;
 	}
-	*/
-	
-	public Integer getCreatorId() {
-		return creatorId;
-	}
-	public void setCreatorId(Integer creatorId) {
-		this.creatorId = creatorId;
-	}
-	public Integer getOwnerId() {
-		return ownerId;
-	}
-	public void setOwnerId(Integer ownerId) {
-		this.ownerId = ownerId;
-	}
-	public Integer getLocationId() {
-		return locationId;
-	}
-	public void setLocationId(Integer locationId) {
-		this.locationId = locationId;
-	}
-	/*
 	public Location getLocation() {
 		return location;
 	}
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	*/
-	public Date getCreated() {
+	public Collection<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Collection<Image> images) {
+        this.images = images;
+    }
+
+    public Date getCreated() {
 		return created;
 	}
 	public void setCreated(Date created) {
